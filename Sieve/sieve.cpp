@@ -44,9 +44,9 @@ private:
 
 PrimesSieve::PrimesSieve(int limit) : is_prime_{new bool[limit + 1]}, limit_{limit}
 {
-    memset(is_prime_, 1, limit + 1); // Initialize the elements of is_prime_ to True except for the final value
-    sieve();
-    num_primes_ = count_num_primes();
+    memset(is_prime_, 1, limit + 1);  // Initialize the elements of is_prime_ to True except for the final value
+    sieve();                          // Runs the Sieve algorithm to find the primes
+    num_primes_ = count_num_primes(); // Stores how many primes
     int i = limit_;
     while (!is_prime_[i])
     { // Iterate through is_prime_ backward to find largest prime
@@ -63,7 +63,7 @@ void PrimesSieve::display_primes() const
     // requirements document.
     int count = 0;
     bool first = 1;
-    if (primes_per_row > num_primes_)
+    if (primes_per_row > num_primes_) // Display method for when all primes can fit on one row
     {
         for (int i = 2; i <= limit_; i++)
         {
@@ -81,23 +81,23 @@ void PrimesSieve::display_primes() const
             }
         }
     }
-    else
+    else // Display method for when primes need multiple rows
     {
         for (int i = 2; i <= limit_; i++)
         {
             if (is_prime_[i])
             {
-                if (first)
+                if (first) // If first element of the line use max_prime_width spacing
                 {
                     cout << setw(max_prime_width_) << i;
                     first = 0;
                     count++;
                 }
-                else
+                else // All others primes use max_prime_width + 1 spacing
                 {
                     cout << setw(max_prime_width_ + 1) << i;
                     count++;
-                    if (count == primes_per_row)
+                    if (count == primes_per_row) // If character limit is used up go to next line
                     {
                         cout << endl;
                         count = 0;
@@ -113,7 +113,7 @@ int PrimesSieve::count_num_primes() const
 {
     // TODO: write code to count the number of primes found
     int num_primes = 0;
-    for (int i = 2; i <= limit_; i++)
+    for (int i = 2; i <= limit_; i++) // Iterates through is_prime_ list to count how many trues;
     {
         if (is_prime_[i])
         {
@@ -123,7 +123,7 @@ int PrimesSieve::count_num_primes() const
     return num_primes;
 }
 
-void PrimesSieve::sieve()
+void PrimesSieve::sieve() // Applies the Sieve of Erasthatos to the is_prime_ list to find which are true primes
 {
     for (int i = 2; i <= sqrt(limit_); i++)
     {
@@ -142,7 +142,7 @@ int PrimesSieve::num_digits(int num)
     // TODO: write code to determine how many digits are in an integer
     // Hint: No strings are needed. Keep dividing by 10.
     int digits = 0;
-    while (num > 9)
+    while (num > 9) // Divides by 10 until there is one digit incrementing digit counter as such
     {
         num /= 10;
         digits++;

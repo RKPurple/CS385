@@ -14,9 +14,9 @@ using namespace std;
 
 bool is_all_lowercase(const string &s)
 {
-    for (int i = 0; i < s.length(); i++)
+    for (char x : s)
     {
-        if (!islower(s.at(i)))
+        if (!islower(x))
         {
             return false;
         }
@@ -32,20 +32,45 @@ bool all_unique_letters(const string &s)
     // You MUST use only a single int for storage and work with bitwise
     // and bitshifting operators.  Using any other kind of solution will
     // automatically result in a grade of ZERO for the whole assignment.
+    unsigned int checker = 0;
+    unsigned int temp = 0;
+    unsigned int setter;
+    for (char x : s)
+    {
+        setter = 1 << (x - 'a');
+        temp = checker;
+        checker = temp & setter;
+        if (checker == setter)
+        {
+            return false;
+        }
+        else
+        {
+            checker = temp | setter;
+        }
+    }
     return true;
 }
 
 int main(int argc, char *const argv[])
 {
-    if (argc != 1)
+    if (argc != 2)
     {
-        cerr << "Usage: " << argv[0] << "<string>" << endl;
+        cerr << "Usage: " << argv[0] << " <string>" << endl;
         return -1;
     }
     if (!is_all_lowercase(argv[1]))
     {
         cerr << "Error: String must contain only lowercase letters." << endl;
         return -1;
+    }
+    if (all_unique_letters(argv[1]))
+    {
+        cout << "All letters are unique." << endl;
+    }
+    else
+    {
+        cout << "Duplicate letters found." << endl;
     }
     // Calls other functions to produce correct output.
 }

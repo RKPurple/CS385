@@ -32,6 +32,7 @@ struct State
     }
 };
 
+// Helper to create the directions for the states that are created
 string make_direction(int diff, string from, string to)
 {
     string result;
@@ -51,7 +52,9 @@ string make_direction(int diff, string from, string to)
     }
 }
 
-vector<State *> backpath;
+vector<State *> backpath; // store your shortest path
+
+// helper to find the path from goal to initial
 void backtrack(State *x)
 {
     // cout << "hi" << endl;
@@ -68,6 +71,7 @@ void backtrack(State *x)
     }
 }
 
+// helper to printout the answer
 void print_backtrack()
 {
     for (unsigned int i = 0; i < backpath.size(); i++)
@@ -97,8 +101,6 @@ void bfs(int goal_a, int goal_b, int goal_c, int cap_a, int cap_b, int cap_c)
     {
         State cur = *(q.front());
         // Check if you've reached your goal states
-        // cout << "Cur: " << cur.to_String() << endl;
-        // print_q(q);
         if (cur.a == goal_a && cur.b == goal_b)
         {
             backtrack(q.front());
@@ -274,6 +276,7 @@ void bfs(int goal_a, int goal_b, int goal_c, int cap_a, int cap_b, int cap_c)
     }
     delete[] inqueue;
 
+    // if you didnt find goal there is no solution so delete all heap pointers and cout no sol
     if (!found)
     {
         while (!q2.empty())
@@ -289,8 +292,9 @@ void bfs(int goal_a, int goal_b, int goal_c, int cap_a, int cap_b, int cap_c)
         cout << "No solution." << endl;
         return;
     }
-    // print_paths();
+    // print solution
     print_backtrack();
+    // rmeove everything allocated to the heap
     while (!q2.empty())
     {
         delete q2.front();
@@ -303,6 +307,7 @@ void bfs(int goal_a, int goal_b, int goal_c, int cap_a, int cap_b, int cap_c)
     }
 }
 
+// Check commandline arguments
 string checkInputs(int len, string inputs[])
 {
     istringstream iss;

@@ -57,7 +57,6 @@ vector<State *> backpath; // store your shortest path
 // helper to find the path from goal to initial
 void backtrack(State *x)
 {
-    // cout << "hi" << endl;
     if (x->parent != nullptr)
     {
         backpath.insert(backpath.begin(), x);

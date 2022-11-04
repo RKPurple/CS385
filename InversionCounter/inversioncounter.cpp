@@ -25,7 +25,7 @@ static long mergesort(int array[], int scratch[], int low, int high);
 long count_inversions_slow(int array[], int length)
 {
     // TODO
-    int num_inversions = 0;
+    long num_inversions = 0;
     // loop over all the elements except for the last
     for (int i = 0; i < length - 1; ++i)
     {
@@ -93,7 +93,7 @@ static long mergesort(int array[], int scratch[], int low, int high)
     if (low < high)
     {
         int mid = low + ((high - low) / 2);
-        num_inversions += mergesort(array, scratch, low, mid);
+        num_inversions = mergesort(array, scratch, low, mid);
         num_inversions += mergesort(array, scratch, mid + 1, high);
         num_inversions += merge(array, scratch, low, mid, high);
     }
